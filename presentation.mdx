@@ -1,221 +1,93 @@
-import { themes } from 'mdx-deck'
-import { Box, Flex, Image, Heading, Text } from 'theme-ui'
-import Giphy from "./src/components/giphy"
-import { List, ListItem } from "./src/components/list"
-import fotonLogo from './src/images/foton.png'
-import exampleQuery from './src/images/example-query.png'
-import exampleQueryResource from './src/images/example-query-resource.png'
-import logicBehindEachPattern from './src/images/logic-behind-each-pattern.png'
-import fragments from './src/images/fragments.png'
+import { themes } from "mdx-deck";
+import { Box, Flex, Image, Heading, Text } from "theme-ui";
+import Giphy from "./src/components/giphy";
+import { List, ListItem } from "./src/components/list";
+import fotonLogo from "./src/images/foton.png";
+import solanaLabs from "./src/images/solana-labs.png";
+import github from "./src/images/github.png";
 
-export const theme = themes.future
+export const theme = themes.future;
 
 <Head>
-  <title>REST to GraphQL</title>
+  <title>Reverse Engineering</title>
 </Head>
 
 <Header>
   <Box p={3} bg="dark">
     <Flex sx={{ alignItems: "center", justifyContent: "space-between" }}>
       <Image height={40} width={140} src={fotonLogo} />
-      <Heading as="h1" sx={{ fontSize: "24px" }}>REST to GraphQL</Heading>
+      <Heading as="h1" sx={{ fontSize: "24px" }}>
+        Reverse Engineering
+      </Heading>
     </Flex>
   </Box>
 </Header>
 
 <Heading as="h2" mb={4}>
-  REST to GraphQL
-</Heading>
-
-<Heading as="h3">
-  Como interligamos o conhecimento das tecnologias
+  Engenharia reversa
 </Heading>
 
 ---
 
-<Heading as="h2">
-  REST
+<Heading as="h3">O que é engenharia reversa ?</Heading>
+
+<br />
+
+<Heading as="h5">
+  Engenharia reversa é o processo de descobrir os princípios tecnológicos e o{" "}
+  <br />
+  funcionamento de um dispositivo, objeto ou sistema, através da análise de sua <br />
+  estrutura, função e operação.
 </Heading>
 
+---
+
+<Heading as="h2">O que eu ganho com isso ?</Heading>
+
+<br />
+
 <List>
-  <ListItem>
-    Organização com base nos resources (Models no backend)
-  </ListItem>
-  <ListItem>
-    Utilização pesada dos metodos HTTP (GET, POST, PUT, DELETE, etc)
-  </ListItem>
-  <ListItem>
-    Cada entrypoint somente retornam um tipo de resouce
-  </ListItem>
-  <ListItem>
-    Versionamento através da url (http://localhost:8000/v1/...)
-  </ListItem>
+  <ListItem>Ajuda na resolução de problemas</ListItem>
+  <ListItem>Ajuda no aprendizado</ListItem>
+  <ListItem>Exercita a leitura de código</ListItem>
 </List>
 
 ---
 
-<Heading as="h2">REST entrypoint examples</Heading>
+<Heading as="h5">
+  Saber ler código é tão importante quanto saber escrever código
+</Heading>
+
+---
 
 <List>
-  <ListItem>
-    http://localhost:8000/v1/user
-  </ListItem>
-  <ListItem>
-    http://localhost:8000/v1/product
-  </ListItem>
-  <ListItem>
-    http://localhost:8000/v1/order
-  </ListItem>
+  <ListItem>Identificar problemas com mais facilidade</ListItem>
+  <ListItem>Melhora a escrita de código</ListItem>
+  <ListItem>Aprendizado</ListItem>
 </List>
 
 ---
 
-<Heading as="h2">REST problems</Heading>
-
-<List>
-  <ListItem>
-    Ter que buscar várias entrypoints para pegar todos os dados que necessita
-  </ListItem>
-  <ListItem>
-    Chegar a um limite onde as entrypoints customizadas saem do controle (Entrypoints para relatórios, gráficos, etc)
-  </ListItem>
-  <ListItem>
-    Over e under fetching
-  </ListItem>
-  <ListItem>
-    Documentação é um problema para manter atualizada (GraphQL tem o graphiql que atualiza automaticamente)
-  </ListItem>
-  <ListItem>
-    Versionamento da api é complexo, principalmente se quiser versionamento em somente algumas entrypoints
-  </ListItem>
-</List>
+<Heading as="h2">Case real</Heading>
 
 ---
-
-<Heading as="h2">E se quisermos imitar o GraphQL no REST?</Heading>
-
----
-
-<Heading as="h2">Buscar somente os campos necessários</Heading>
-
-<List>
-  <ListItem>
-    http://localhost:8000/v1/user?fields=id,name,email
-  </ListItem>
-  <ListItem>
-    http://localhost:8000/v1/product?fields=id,name,price,type
-  </ListItem>
-  <ListItem>
-    http://localhost:8000/v1/order?fields=id,totalPrice,status
-  </ListItem>
-</List>
-
----
-
-<Heading as="h2">E fields nested em uma call só?</Heading>
-
----
-
-<Heading as="h2" mb={4}>Onde?</Heading>
-
-<Giphy url="https://giphy.com/embed/gIfgb4RSmErc07m4n9" />
-
----
-
-<Heading as="h2" mb={5}>Passo a passo para a ideia do GraphQL</Heading>
-
-<Heading as="h4">REST:</Heading>
-
-<List>
-  <ListItem>
-    REST faz uso da url para informar o resource que quer e tambem do metodo HTTP para a ação que deseja.
-  </ListItem>
-  <ListItem>
-    Em REST os dados são passados normalmente no formato JSON
-  </ListItem>
-</List>
-
-<Heading as="h4">GraphQL:</Heading>
-
-<List>
-  <ListItem>
-    Já que não conseguimos chamar tudo o que queremos em uma só call porque não passamos no body da requisição com um formato especifico que explique o que precisamos?
-  </ListItem>
-  <ListItem>
-    Humm... GET não tem o padrão de passar valor no body logo teremos que enviar com POST os dados
-  </ListItem>
-  <ListItem>
-    Para informarmos se queremos dados ou queremos altera-los precisaremos uma nomenclatura como.... query para buscas de dados e mutation para alteração dos dados!
-  </ListItem>
-  <ListItem>
-    E tambem ainda podemos fazer uso do status do HTTP para nossas respostas!
-  </ListItem>
-</List>
-
----
-
-<Heading as="h2" mb={4}>Formato do body nas chamadas GraphQL</Heading>
 
 <Box>
-  <Image width={736} height={422} src={exampleQuery} />
+  <Image width={1013} height={463} src={solanaLabs} />
 </Box>
 
 ---
 
-<Heading as="h2" mb={4}>Quais seriam os resources no GraphQL?</Heading>
+<Heading as="h2">Como praticar?</Heading>
+
+---
+
+<Heading as="h2">Github</Heading>
+
+<br />
 
 <Box>
-  <Image width={736} height={422} src={exampleQueryResource} />
-</Box>
-
----
-
-<Heading as="h2" mb={5}>Como se conecta ao código?</Heading>
-
-<Heading as="h4">REST:</Heading>
-
-<Text sx={{ maxWidth: "calc(100% - 200px)", width: "100%", margin: "0 auto" }}>
-  Cada resource chama uma determinada entrypoint que no caso seria só uma função que trabalha para pegar os dados que eu quero
-</Text>
-
-<Heading as="h4" mt={4}>GraphQL:</Heading>
-
-<Text sx={{ maxWidth: "calc(100% - 200px)", width: "100%", margin: "0 auto" }}>
-  Como as chamadas do GraphQL batem sempre numa unica entrypoint, nos configuramos ela para ter um parser do body que informamos acima
-  onde é gerado por baixo dos panos um AST que depois interliga os resources com chamadas de funções que chamamos no GraphQL de resolvers, pois
-  estes resolvem como pegamos os dados desses resources
-</Text>
-
----
-
-<Heading as="h2" mb={5}>Como se conecta ao código?</Heading>
-
-<Box>
-  <Image width={1437} height={306} src={logicBehindEachPattern} />
-</Box>
-
----
-
-<Heading as="h2" mb={5}>E os fragments?</Heading>
-
-<Giphy url="https://giphy.com/embed/XeH1MFu4x3etVsllUN" />
-
----
-
-<Heading as="h2" mb={5}>E os fragments?</Heading>
-
-<Text sx={{ maxWidth: "calc(100% - 200px)", width: "100%", margin: "0 auto" }}>
-  Fragments são basicamente uma forma de não ficarmos digitando os campos que desejamos de um recurso várias vezes em
-  vários lugares (DRY), onde que se precisarmos editar em 1 deles, precisaremos fazer isso N vezes.
-  Nesses casos criamos um fragment de um recurso especifico e reutilizamos por ai.
-</Text>
-
----
-
-<Heading as="h2" mb={5}>Exemplo de fragment</Heading>
-
-<Box>
-  <Image width={1441} height={620} src={fragments} />
+  <Image width={572} height={359} src={github} />
 </Box>
 
 ---
